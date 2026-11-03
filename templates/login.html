@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Login - WeatherAvatar{% endblock %}</title>
+    
+    <!-- Bootstrap CSS with Replit Theme -->
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 50%, #E6F3FF 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .login-container {
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
+            border-radius: 2rem;
+            border: 4px solid #2C3E50;
+            width: 90%;
+            max-width: 400px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .welcome-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2C3E50;
+            margin: 0;
+        }
+        
+        .auth-form-container {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            flex-grow: 1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #6B7280;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .auth-tab.active {
+            color: #3B82F6;
+            border-bottom-color: #3B82F6;
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            background: white;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 0.875rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: #3B82F6;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-primary:hover {
+            background: #2563EB;
+            transform: translateY(-1px);
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .forgot-password a {
+            color: #3B82F6;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .google-login {
+            width: 100%;
+            padding: 0.875rem;
+            font-size: 1rem;
+            font-weight: 500;
+            background: white;
+            color: #374151;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .google-login:hover {
+            background: #F9FAFB;
+            border-color: #9CA3AF;
+        }
+        
+        .google-icon {
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIyLjU2IDEyLjI1QzIyLjU2IDExLjQ3IDIyLjQ5IDEwLjc0IDIyLjM2IDEwLjAzSDEyVjE0LjI1SDE3LjY5QzE3LjQzIDE1LjYgMTYuNTggMTYuNzcgMTUuMzEgMTcuNDVWMjAuNDZIMTkuMDZDMjEuMyAxOC40OSAyMi41NiAxNS42IDIyLjU2IDEyLjI1WiIgZmlsbD0iIzQyODVGNCIvPgo8cGF0aCBkPSJNMTIgMjNDMTUuMDQgMjMgMTcuNjMgMjEuOTMgMTkuMDYgMjAuNDZMMTUuMzEgMTcuNDVDMTQuMzIgMTguMTIgMTMuMDIgMTguNTMgMTIgMTguNTNDOS4wMyAxOC41MyA2LjUxIDE2LjUzIDUuNjUgMTMuNjVIMi4wNVYxNi43MkM0LjQ1IDE5LjUgOCAyMyAxMiAyM1oiIGZpbGw9IiMzNEE4NTMiLz4KPHBhdGggZD0iTTUuNjUgMTMuNjVDNS40NSAxMi45OCA1LjM0IDEyLjI3IDUuMzQgMTEuNUM1LjM0IDEwLjczIDUuNDUgMTAuMDIgNS42NSA5LjM1VjYuMjhIMi4wNUMxLjI4IDcuODEgMC44NiA5LjYxIDAuODYgMTEuNUMwLjg2IDEzLjM5IDEuMjggMTUuMTkgMi4wNSAxNi43MkwuNjUgMTMuNjVILjY1WiIgZmlsbD0iI0ZCQkMwNSIvPgo8cGF0aCBkPSJNMTIgNC40N0MxMy4yNyA0LjQ3IDE0LjQzIDQuOSAxNS4zNSA1LjM5TDE4LjYgMi4xOEMxNy42MiAxLjI5IDE2LjM3IDAuODYgMTQgMC44NkM4IDE4IDQuNDUgMi41IDIuMDUgNi4yOEw1LjY1IDkuMzVDNi41MSA2LjQ3IDkuMDMgNC40NyAxMiA0LjQ3WiIgZmlsbD0iI0VBNDMzNSIvPgo8L3N2Zz4K') no-repeat center;
+            background-size: contain;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: none;
+            border: none;
+            color: #2C3E50;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                width: 95%;
+                padding: 1.5rem;
+                min-height: 85vh;
+            }
+            
+            .auth-form-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="goBack()">
+            <i data-feather="arrow-left" style="width: 24px; height: 24px;"></i>
+        </button>
+        
+        <!-- Welcome Header -->
+        <div class="welcome-header">
+            <h1 class="welcome-title">Welcome Back</h1>
+        </div>
+        
+        <!-- Auth Form Container -->
+        <div class="auth-form-container">
+            <!-- Tabs -->
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+                <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form class="auth-form active" id="loginForm" method="POST" action="{{ url_for('login') }}">
+                <input type="hidden" name="form_type" value="login">
+                
+                <div class="form-group">
+                    <label class="form-label" for="login_email">Email</label>
+                    <input type="email" id="login_email" name="email" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="login_password">Password</label>
+                    <input type="password" id="login_password" name="password" class="form-control" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Log In</button>
+                
+                <div class="forgot-password">
+                    <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                </div>
+                
+                <button type="button" class="google-login" onclick="loginWithGoogle()">
+                    <div class="google-icon"></div>
+                    Continue with Google
+                </button>
+            </form>
+            
+            <!-- Sign Up Form -->
+            <form class="auth-form" id="signupForm" method="POST" action="{{ url_for('login') }}">
+                <input type="hidden" name="form_type" value="signup">
+                
+                <div class="form-group">
+                    <label class="form-label" for="signup_email">Email</label>
+                    <input type="email" id="signup_email" name="email" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="signup_password">Password</label>
+                    <input type="password" id="signup_password" name="password" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Sign Up</button>
+                
+                <button type="button" class="google-login" onclick="loginWithGoogle()">
+                    <div class="google-icon"></div>
+                    Continue with Google
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+        
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update forms
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            if (tabName === 'login') {
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.getElementById('signupForm').classList.add('active');
+            }
+        }
+        
+        function goBack() {
+            window.location.href = '/';
+        }
+        
+        function showForgotPassword() {
+            alert('Forgot password functionality will be implemented. For now, please contact support.');
+        }
+        
+        function loginWithGoogle() {
+            // This will be implemented when Google OAuth is configured
+            alert('Google authentication will be implemented. Please use email/password for now.');
+        }
+        
+        // Form validation
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            const password = document.getElementById('signup_password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert('Passwords do not match!');
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>

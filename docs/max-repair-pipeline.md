@@ -1,0 +1,15 @@
+# Max with targeted repairs
+
+The weather outfit path now uses Try-On Max balanced 2k. After each output, an OpenAI gpt-4.1 vision check compares the original avatar, complete reference and candidate. It checks visible facial appearance/frame and all major clothes, including bottoms and footwear. Passing results are saved automatically; failures get at most two targeted Max repairs using a reference crop and correction instruction. Every repair is checked again against the original avatar and full reference. Face/frame failures stop automatic repairs. This is an imperfect visual check, not an exact likeness or product-fidelity guarantee.
+
+The original avatar and existing looks are never overwritten. New jobs remain previews until they pass or the user explicitly saves them. Checks use `store:false` and log token usage, not images or credentials. A checker failure leaves a reviewable preview and does not cause more paid generation.
+
+Generation costs 3 FASHN credits initially and at most 9 total. OpenAI review usage is separate. Charges are reserved before each generation, including repairs. Unknown submissions are not resubmitted automatically. Pending provider IDs resume after restart. Both local user/global allowances count external benchmark spend as well as app requests.
+
+Caching is isolated by owner, avatar and full reference image hash; weather is not part of the render identity. A saved outfit can be reused across all weather categories that select that same reference, for no generation or review request. Source image, pipeline version and settings participate in request deduplication. Existing manually accepted benchmark results remain reusable. The five passing benchmark outputs were imported; the failing floral near-match was not promoted.
+
+`./scripts/run-pilot.sh` uses the existing Keychain broker for FASHN_API_KEY and OPENAI_API_KEY, with OPENAI_OUTFIT_REVIEW_ENABLED=1 after explicit user approval on November 3, 2026. No .env file is needed. Disable that flag to stop image egress to the checker; generated results then remain previews for manual review.
+
+Validation: repair/pass, two-repair ceiling, face failure, checker outage, spending ceiling, restart, owner/avatar isolation, cross-weather deduplication, retained costs after repair failure, and existing application tests. `scripts/live_repair_smoke.py` resumes the old failed rain candidate through the actual production worker, avoiding a paid duplicate first pass.
+
+Live validation succeeded: the checker rejected khaki trousers/black shoes, requested a lower-body repair, then accepted grey trousers/light trainers while retaining facial appearance and framing. One new repair cost 3 FASHN credits; provider balance 46. Two OpenAI checks recorded 7,164 input tokens and 226 output tokens in total. Browser weather switching reused saved image IDs without creating jobs. All nine pre-existing images and avatar/profile records were compared to the backup and unchanged. 61 backend and 11 frontend tests passed.

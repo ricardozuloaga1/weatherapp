@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {recommend, selectHours, sampleWeather} from '../static/js/outfit-engine.mjs';
+const hour = (feels,extra={}) => ({feels,temp:feels,rain:0,wind:10,code:0,...extra});
+test('rain protection changes the outfit even in mild temperatures',()=>{const o=recommend([hour(20,{rain:70})]);assert.equal(o.layer,'raincoat');assert.equal(o.shoes,'boots');});
+test('cold rain keeps insulation as well as water protection',()=>{const o=recommend([hour(2,{rain:80})]);assert.equal(o.layer,'coat');assert.match(o.items[0].name,/Water-resistant insulated/);});
+test('heat removes outerwear and uses shorts; work retains trousers',()=>{assert.equal(recommend([hour(30)]).layer,'none');assert.equal(recommend([hour(30)]).bottom,'shorts');const work=recommend([hour(30)],{activity:'work'});assert.equal(work.bottom,'trousers');assert.equal(work.top,'shirt');});
+test('wind adds protection without double-subtracting from apparent temperature',()=>{const o=recommend([hour(20,{wind:30})]);assert.equal(o.layer,'jacket');assert.equal(o.min,20);});
+test('personal comfort changes a borderline recommendation',()=>{assert.equal(recommend([hour(19)],{comfort:'cold'}).layer,'jacket');assert.equal(recommend([hour(19)],{comfort:'warm'}).layer,'none');});
+test('today periods exclude elapsed hours; next 12 hours crosses midnight',()=>{const w=sampleWeather();w.time='2026-10-27T20:15';assert.equal(selectHours(w,'morning').length,0);assert.equal(selectHours(w,'afternoon').length,0);assert.equal(selectHours(w,'evening').length,4);const h=selectHours(w,'day');assert.equal(h.length,12);assert.equal(h.at(-1).time,'2026-10-28T07:00');});
+test('hourly selection changes layers as the afternoon warms up',()=>{const w=sampleWeather();assert.equal(recommend(selectHours(w,'morning')).layer,'jacket');assert.equal(recommend(selectHours(w,'afternoon')).layer,'none');});
+test('severe weather produces a notice',()=>{assert.match(recommend([hour(20,{code:95})]).warning,/Thunderstorms/);assert.match(recommend([hour(40)]).warning,/Extreme/);});

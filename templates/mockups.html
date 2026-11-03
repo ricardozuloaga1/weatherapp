@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Design Mockups - WeatherAvatar{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex align-items-center mb-4">
+            <i data-feather="image" class="me-3 text-info" style="width: 32px; height: 32px;"></i>
+            <div>
+                <h1 class="mb-1">Design Mockups</h1>
+                <p class="text-muted mb-0">Preview and manage uploaded UI designs</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Instructions Card -->
+        <div class="card mb-4 border-0 bg-body-secondary">
+            <div class="card-body">
+                <div class="d-flex align-items-start">
+                    <i data-feather="upload" class="me-3 mt-1 text-success"></i>
+                    <div>
+                        <h5 class="card-title">How to Use This Page</h5>
+                        <p class="card-text">
+                            This page is designed to help preview and organize UI mockups during development:
+                        </p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i data-feather="check" class="me-2 text-success" style="width: 16px; height: 16px;"></i>
+                                Upload mockups directly to the chat conversation
+                            </li>
+                            <li class="mb-2">
+                                <i data-feather="check" class="me-2 text-success" style="width: 16px; height: 16px;"></i>
+                                Describe the intended behavior for each design
+                            </li>
+                            <li class="mb-2">
+                                <i data-feather="check" class="me-2 text-success" style="width: 16px; height: 16px;"></i>
+                                Get corresponding routes, templates, and functionality
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Status -->
+        <div class="text-center py-5">
+            <div class="mb-4">
+                <i data-feather="image" class="text-muted" style="width: 64px; height: 64px;"></i>
+            </div>
+            <h3 class="text-muted mb-3">No Mockups Uploaded Yet</h3>
+            <p class="text-muted mb-4">
+                Start by uploading your first UI mockup to begin the iterative development process.
+            </p>
+            
+            <div class="alert alert-info border-0 text-start" role="alert">
+                <div class="d-flex align-items-center">
+                    <i data-feather="lightbulb" class="me-3"></i>
+                    <div>
+                        <h6 class="alert-heading mb-1">Development Workflow</h6>
+                        <p class="mb-0 small">
+                            Once you upload a mockup, I'll analyze the design and create the corresponding Flask routes, HTML templates, CSS styles, and JavaScript functionality to bring your design to life.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Placeholder for Future Mockups -->
+        <div id="mockups-container" class="d-none">
+            <!-- Mockups will be dynamically added here as they're uploaded -->
+        </div>
+
+        <!-- Development Tools -->
+        <div class="row g-3 mt-4">
+            <div class="col-sm-6">
+                <div class="card border-0 bg-body-tertiary">
+                    <div class="card-body text-center">
+                        <i data-feather="layout" class="mb-2 text-primary" style="width: 32px; height: 32px;"></i>
+                        <h6 class="card-title">Templates</h6>
+                        <p class="card-text small text-muted">
+                            Jinja2 templates ready for mockup implementation
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card border-0 bg-body-tertiary">
+                    <div class="card-body text-center">
+                        <i data-feather="route" class="mb-2 text-info" style="width: 32px; height: 32px;"></i>
+                        <h6 class="card-title">Routes</h6>
+                        <p class="card-text small text-muted">
+                            Flask routes configured for new features
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Home -->
+        <div class="text-center mt-5">
+            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                <i data-feather="arrow-left" class="me-2"></i>
+                Back to Home
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Function to add mockups dynamically as they're uploaded
+    function addMockup(mockupData) {
+        const container = document.getElementById('mockups-container');
+        container.classList.remove('d-none');
+        
+        // Create mockup card element
+        const mockupCard = document.createElement('div');
+        mockupCard.className = 'card mb-4';
+        mockupCard.innerHTML = `
+            <div class="card-body">
+                <h5 class="card-title">${mockupData.name}</h5>
+                <p class="card-text">${mockupData.description}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">Uploaded: ${mockupData.timestamp}</small>
+                    <button class="btn btn-outline-primary btn-sm" onclick="implementMockup('${mockupData.id}')">
+                        <i data-feather="code" class="me-1"></i>
+                        Implement
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        container.appendChild(mockupCard);
+        feather.replace();
+    }
+    
+    function implementMockup(mockupId) {
+        alert('Mockup implementation will be handled through the chat interface. Describe the behavior you want for this design.');
+    }
+</script>
+{% endblock %}

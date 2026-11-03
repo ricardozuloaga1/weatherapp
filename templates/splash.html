@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to WeatherAvatar</title>
+    
+    <!-- Bootstrap CSS with Replit Theme -->
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 50%, #E6F3FF 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .splash-container {
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
+            border-radius: 2rem;
+            border: 4px solid #2C3E50;
+            width: 90%;
+            max-width: 400px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .logo-section {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-icon svg {
+            width: 48px;
+            height: 48px;
+            color: #4A90E2;
+        }
+        
+        .app-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 0;
+            letter-spacing: -0.5px;
+        }
+        
+        .welcome-section {
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .welcome-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #2C3E50;
+            line-height: 1.4;
+            margin: 0;
+        }
+        
+        .get-started-section {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        
+        .get-started-btn {
+            background: #2C3E50;
+            color: white;
+            border: none;
+            border-radius: 2rem;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+            display: block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.3);
+        }
+        
+        .get-started-btn:hover {
+            background: #34495e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(44, 62, 80, 0.4);
+        }
+        
+        .get-started-btn:active {
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 480px) {
+            .splash-container {
+                width: 95%;
+                padding: 2rem 1.5rem;
+                min-height: 85vh;
+            }
+            
+            .app-title {
+                font-size: 1.5rem;
+            }
+            
+            .welcome-text {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo-icon">
+                <i data-feather="cloud"></i>
+            </div>
+            <h1 class="app-title">WeatherAvatar</h1>
+        </div>
+        
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <p class="welcome-text">
+                Welcome to<br>
+                WeatherAvatar
+            </p>
+        </div>
+        
+        <!-- Get Started Section -->
+        <div class="get-started-section">
+            <button class="get-started-btn" onclick="getStarted()">
+                Get Started
+            </button>
+            <div style="margin-top: 1rem;">
+                <a href="/login" style="color: #2C3E50; text-decoration: none; font-weight: 500;">
+                    Already have an account? Login
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+        
+        function getStarted() {
+            // Add click animation
+            const btn = document.querySelector('.get-started-btn');
+            btn.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                // Navigate to profile creation
+                window.location.href = '/profile';
+            }, 150);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Create Profile - WeatherAvatar{% endblock %}</title>
+    
+    <!-- Bootstrap CSS with Replit Theme -->
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 50%, #E6F3FF 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .profile-container {
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
+            border-radius: 2rem;
+            border: 4px solid #2C3E50;
+            width: 90%;
+            max-width: 400px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .header-section {
+            text-align: center;
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .profile-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2C3E50;
+            margin: 0;
+            line-height: 1.3;
+        }
+        
+        .profile-form-container {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            flex-grow: 1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+        }
+        
+        .form-section:last-of-type {
+            margin-bottom: 0;
+        }
+        
+        .section-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .height-input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .height-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.75rem;
+            background: #F3F4F6;
+            text-align: center;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .height-input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .height-unit {
+            position: absolute;
+            right: 1rem;
+            color: #6B7280;
+            font-size: 1rem;
+            font-weight: 500;
+            pointer-events: none;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .option-button {
+            flex: 1;
+            min-width: 80px;
+            padding: 0.875rem 1rem;
+            font-size: 1rem;
+            font-weight: 500;
+            background: #E5E7EB;
+            color: #374151;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .option-button:hover {
+            background: #D1D5DB;
+        }
+        
+        .option-button.active {
+            background: #3B82F6;
+            color: white;
+        }
+        
+        .gender-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .gender-group .option-button {
+            flex: 1;
+            min-width: 70px;
+            font-size: 0.9rem;
+        }
+        
+        .body-type-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .body-type-group .option-button {
+            flex: 1;
+            min-width: 80px;
+        }
+        
+        .next-button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: #3B82F6;
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            margin-bottom: 1rem;
+        }
+        
+        .next-button:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+        }
+        
+        .next-button:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: none;
+            border: none;
+            color: #2C3E50;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .form-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @media (max-width: 480px) {
+            .profile-container {
+                width: 95%;
+                padding: 1.5rem;
+                min-height: 85vh;
+            }
+            
+            .profile-form-container {
+                padding: 1.5rem;
+            }
+            
+            .profile-title {
+                font-size: 1.5rem;
+            }
+            
+            .gender-group .option-button {
+                font-size: 0.85rem;
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="goBack()">
+            <i data-feather="arrow-left" style="width: 24px; height: 24px;"></i>
+        </button>
+        
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1 class="profile-title">Tell Us<br>About You</h1>
+        </div>
+        
+        <!-- Profile Form Container -->
+        <div class="profile-form-container">
+            <form class="form-container" id="profileForm" method="POST" action="{{ url_for('profile') }}">
+                <!-- Height Section -->
+                <div class="form-section">
+                    <label class="section-label">Height</label>
+                    <div class="height-input-container">
+                        <input type="number" 
+                               id="height" 
+                               name="height" 
+                               class="height-input" 
+                               placeholder="170" 
+                               min="100" 
+                               max="250"
+                               required>
+                        <span class="height-unit">cm</span>
+                    </div>
+                </div>
+                
+                <!-- Gender Section -->
+                <div class="form-section">
+                    <label class="section-label">Gender</label>
+                    <div class="button-group gender-group">
+                        <button type="button" class="option-button active" data-value="male" onclick="selectGender(this, 'male')">
+                            Male
+                        </button>
+                        <button type="button" class="option-button" data-value="female" onclick="selectGender(this, 'female')">
+                            Female
+                        </button>
+                        <button type="button" class="option-button" data-value="athletic" onclick="selectGender(this, 'non-binary')">
+                            Athletic
+                        </button>
+                    </div>
+                    <input type="hidden" id="genderInput" name="gender" value="male">
+                </div>
+                
+                <!-- Body Type Section -->
+                <div class="form-section">
+                    <label class="section-label">Body Type</label>
+                    <div class="button-group body-type-group">
+                        <button type="button" class="option-button active" data-value="slim" onclick="selectBodyType(this, 'slim')">
+                            Slim
+                        </button>
+                        <button type="button" class="option-button" data-value="average" onclick="selectBodyType(this, 'average')">
+                            Average
+                        </button>
+                        <button type="button" class="option-button" data-value="athletic" onclick="selectBodyType(this, 'athletic')">
+                            Athletic
+                        </button>
+                    </div>
+                    <input type="hidden" id="bodyTypeInput" name="body_type" value="slim">
+                </div>
+                
+                <!-- Next Button -->
+                <button type="submit" class="next-button" id="nextButton">
+                    Next
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+        
+        function selectGender(button, value) {
+            // Remove active class from all gender buttons
+            document.querySelectorAll('.gender-group .option-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Update hidden input
+            document.getElementById('genderInput').value = value;
+        }
+        
+        function selectBodyType(button, value) {
+            // Remove active class from all body type buttons
+            document.querySelectorAll('.body-type-group .option-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Update hidden input
+            document.getElementById('bodyTypeInput').value = value;
+        }
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Form validation
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            const height = document.getElementById('height').value;
+            
+            if (!height || height < 100 || height > 250) {
+                e.preventDefault();
+                alert('Please enter a valid height between 100-250 cm');
+                return false;
+            }
+        });
+        
+        // Height input validation
+        document.getElementById('height').addEventListener('input', function() {
+            const value = parseInt(this.value);
+            const nextButton = document.getElementById('nextButton');
+            
+            if (value && value >= 100 && value <= 250) {
+                nextButton.disabled = false;
+            } else {
+                nextButton.disabled = true;
+            }
+        });
+        
+        // Initialize form state
+        document.addEventListener('DOMContentLoaded', function() {
+            const heightInput = document.getElementById('height');
+            const nextButton = document.getElementById('nextButton');
+            
+            // Check initial state
+            if (!heightInput.value) {
+                nextButton.disabled = true;
+            }
+        });
+    </script>
+</body>
+</html>

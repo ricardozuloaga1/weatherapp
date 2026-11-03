@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Home - WeatherAvatar{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto text-center">
+        <!-- Hero Section -->
+        <div class="hero-section mb-5">
+            <div class="display-1 mb-4">
+                <i data-feather="cloud-rain" class="text-info"></i>
+            </div>
+            <h1 class="display-4 fw-bold mb-3">WeatherAvatar</h1>
+            <p class="lead mb-4">
+                A dynamic weather application that brings your weather experience to life with personalized avatars that change based on current conditions.
+            </p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <button class="btn btn-outline-info btn-lg" onclick="showComingSoon()">
+                    <i data-feather="thermometer" class="me-2"></i>
+                    Check Weather
+                </button>
+                <button class="btn btn-secondary btn-lg" onclick="showComingSoon()">
+                    <i data-feather="user" class="me-2"></i>
+                    Customize Avatar
+                </button>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 bg-transparent">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i data-feather="sun" class="text-warning" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <h5 class="card-title">Real-time Weather</h5>
+                        <p class="card-text text-muted">
+                            Get accurate, up-to-date weather information for any location worldwide.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 bg-transparent">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i data-feather="user-check" class="text-success" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <h5 class="card-title">Dynamic Avatars</h5>
+                        <p class="card-text text-muted">
+                            Your avatar automatically adapts to reflect current weather conditions and mood.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 bg-transparent">
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <i data-feather="smartphone" class="text-info" style="width: 48px; height: 48px;"></i>
+                        </div>
+                        <h5 class="card-title">Responsive Design</h5>
+                        <p class="card-text text-muted">
+                            Beautiful, responsive interface that works perfectly on all devices.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Development Status -->
+        <div class="alert alert-info border-0" role="alert">
+            <div class="d-flex align-items-center">
+                <i data-feather="info" class="me-3"></i>
+                <div>
+                    <h5 class="alert-heading mb-1">Development Ready</h5>
+                    <p class="mb-0">
+                        This application is ready for iterative development. Upload UI mockups to begin building specific features and pages.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row g-3 mt-4">
+            <div class="col-sm-6">
+                <a href="{{ url_for('mockups') }}" class="btn btn-outline-secondary w-100">
+                    <i data-feather="image" class="me-2"></i>
+                    View Mockups
+                </a>
+            </div>
+            <div class="col-sm-6">
+                <button class="btn btn-outline-secondary w-100" onclick="showDeveloperInfo()">
+                    <i data-feather="code" class="me-2"></i>
+                    Developer Info
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Developer Info Modal -->
+<div class="modal fade" id="developerModal" tabindex="-1" aria-labelledby="developerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="developerModalLabel">
+                    <i data-feather="code" class="me-2"></i>
+                    Developer Information
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>Project Structure</h6>
+                <ul class="list-unstyled">
+                    <li><code>app.py</code> - Main Flask application</li>
+                    <li><code>routes.py</code> - Route definitions</li>
+                    <li><code>models.py</code> - Database models</li>
+                    <li><code>templates/</code> - Jinja2 templates</li>
+                    <li><code>static/</code> - CSS, JS, and assets</li>
+                </ul>
+                
+                <h6 class="mt-3">Technology Stack</h6>
+                <ul class="list-unstyled">
+                    <li><strong>Backend:</strong> Flask, SQLAlchemy</li>
+                    <li><strong>Frontend:</strong> Bootstrap 5, Vanilla JS</li>
+                    <li><strong>Icons:</strong> Feather Icons</li>
+                    <li><strong>Theme:</strong> Replit Dark Theme</li>
+                </ul>
+                
+                <h6 class="mt-3">Next Steps</h6>
+                <p class="small text-muted">
+                    Upload UI mockups to begin implementing specific features. Each mockup will be converted into working routes, templates, and functionality.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function showComingSoon() {
+        alert('This feature will be implemented based on UI mockups. Please upload mockups to begin development.');
+    }
+    
+    function showDeveloperInfo() {
+        const modal = new bootstrap.Modal(document.getElementById('developerModal'));
+        modal.show();
+    }
+</script>
+{% endblock %}

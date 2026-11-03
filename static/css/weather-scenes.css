@@ -1,0 +1,23 @@
+/* Bundled photographic scenes. Only the selected image is requested by CSS. */
+body:not(.wardrobe-mode){background:#29455e;background-image:linear-gradient(155deg,#29455e,#657482);background-attachment:fixed}
+body:not(.wardrobe-mode)::before{display:none}
+[data-weather-scene]{--scene-overlay:linear-gradient(180deg,#10294155 0%,#122e4420 45%,#1c34491a 100%);--scene-image:none}
+[data-weather-scene="clear"]{--scene-image:url('/static/images/weather/clear.png')}
+[data-weather-scene="partly-cloudy"]{--scene-image:url('/static/images/weather-sky.png')}
+[data-weather-scene="cloudy"]{--scene-image:url('/static/images/weather/cloudy.png')}
+[data-weather-scene="rain"]{--scene-image:url('/static/images/weather/rain.png')}
+[data-weather-scene="snow"]{--scene-image:url('/static/images/weather/snow.png');--scene-overlay:linear-gradient(180deg,#172c447d,#203c5745)}
+[data-weather-scene="fog"]{--scene-image:url('/static/images/weather/fog.png');--scene-overlay:linear-gradient(180deg,#172c448c,#203c574a)}
+[data-weather-scene="storm"]{--scene-image:url('/static/images/weather/storm.png')}
+[data-weather-scene="night-clear"]{--scene-image:url('/static/images/weather/night-clear.png')}
+[data-weather-scene="night-cloudy"]{--scene-image:url('/static/images/weather/night-cloudy.png')}
+[data-weather-scene][data-period="night"]{--scene-overlay:linear-gradient(180deg,#050f286b,#081b3340)}
+[data-weather-scene="snow"][data-period="night"],[data-weather-scene="fog"][data-period="night"],[data-weather-scene="rain"][data-period="night"]{--scene-overlay:linear-gradient(180deg,#040f2bb8,#091d39a6)}
+body[data-weather-scene]:not(.wardrobe-mode),.scene-preview{background-color:#29455e;background-image:var(--scene-overlay),var(--scene-image);background-size:cover;background-position:center top;background-repeat:no-repeat}
+body[data-weather-scene]:not(.wardrobe-mode){background-attachment:fixed}
+body:not(.wardrobe-mode) .conditions,body:not(.wardrobe-mode) header,body:not(.wardrobe-mode) .page>h1,body:not(.wardrobe-mode) .page>.page-subtitle{color:#fff;text-shadow:0 1px 4px #07182b40}
+body:not(.wardrobe-mode) footer,body:not(.wardrobe-mode) .weather-generation .fine{color:#fff}
+body.wardrobe-mode{background:#f2f1ed}
+body.wardrobe-mode header{color:#172839;text-shadow:none}
+/* Rain summary is a light card, unlike ordinary page subtitles. */
+body:not(.wardrobe-mode) #rain-page>.page-subtitle{color:#152d42;text-shadow:none}

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Weather - WeatherAvatar{% endblock %}</title>
+    
+    <!-- Bootstrap CSS with Replit Theme -->
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 50%, #E6F3FF 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .weather-container {
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
+            border-radius: 2rem;
+            border: 4px solid #2C3E50;
+            width: 90%;
+            max-width: 400px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .header-section {
+            text-align: center;
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .weather-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2C3E50;
+            margin: 0;
+        }
+        
+        .weather-content {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            flex-grow: 1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .location-button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: white;
+            color: #2C3E50;
+            border: 2px solid #E5E7EB;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .location-button:hover {
+            background: #F9FAFB;
+            border-color: #3B82F6;
+            color: #3B82F6;
+        }
+        
+        .location-button:disabled {
+            background: #F3F4F6;
+            color: #9CA3AF;
+            cursor: not-allowed;
+        }
+        
+        .city-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.75rem;
+            background: #F9FAFB;
+            color: #374151;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .city-input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .city-input::placeholder {
+            color: #9CA3AF;
+        }
+        
+        .weather-display {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: #F8FAFC;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            margin: 1rem 0;
+        }
+        
+        .weather-temp {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2C3E50;
+            margin: 0;
+            line-height: 1;
+        }
+        
+        .weather-condition {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #6B7280;
+            margin: 0.5rem 0 1rem;
+        }
+        
+        .weather-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .weather-icon svg {
+            width: 100%;
+            height: 100%;
+            color: #F59E0B;
+        }
+        
+        .loading-weather {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #6B7280;
+        }
+        
+        .loading-weather.show {
+            display: flex;
+        }
+        
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #E5E7EB;
+            border-top-color: #3B82F6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .outfit-button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: #2C3E50;
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .outfit-button:hover {
+            background: #34495e;
+            transform: translateY(-2px);
+        }
+        
+        .outfit-button:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: none;
+            border: none;
+            color: #2C3E50;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .error-message {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            color: #B91C1C;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        @media (max-width: 480px) {
+            .weather-container {
+                width: 95%;
+                padding: 1.5rem;
+                min-height: 85vh;
+            }
+            
+            .weather-content {
+                padding: 1.5rem;
+            }
+            
+            .weather-title {
+                font-size: 1.5rem;
+            }
+            
+            .weather-temp {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="goBack()">
+            <i data-feather="arrow-left" style="width: 24px; height: 24px;"></i>
+        </button>
+        
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1 class="weather-title">Your Weather</h1>
+        </div>
+        
+        <!-- Weather Content -->
+        <div class="weather-content">
+            <!-- Use Location Button -->
+            <button class="location-button" id="locationBtn" onclick="getLocation()">
+                <i data-feather="map-pin" style="width: 20px; height: 20px;"></i>
+                Use My Location
+            </button>
+            
+            <!-- Manual City Input -->
+            <input type="text" 
+                   class="city-input" 
+                   id="cityInput" 
+                   placeholder="Enter City or ZIP Code"
+                   onkeypress="handleCityInput(event)">
+            
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage"></div>
+            
+            <!-- Weather Display -->
+            <div class="weather-display" id="weatherDisplay">
+                <div class="loading-weather" id="loadingWeather">
+                    <div class="spinner"></div>
+                    <span>Getting weather...</span>
+                </div>
+                
+                <div id="weatherData" style="display: none;">
+                    <div class="weather-icon" id="weatherIcon">
+                        <i data-feather="sun"></i>
+                    </div>
+                    <h2 class="weather-temp" id="temperature">72°F</h2>
+                    <p class="weather-condition" id="condition">Sunny</p>
+                </div>
+                
+                <div id="noWeatherData">
+                    <div class="weather-icon">
+                        <i data-feather="cloud" style="color: #9CA3AF;"></i>
+                    </div>
+                    <p style="color: #9CA3AF; margin: 1rem 0;">
+                        Get your location or enter a city to see weather
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Check Outfit Button -->
+            <button class="outfit-button" id="outfitBtn" onclick="checkOutfit()" disabled>
+                <i data-feather="shirt" style="width: 20px; height: 20px;"></i>
+                Check My Outfit
+            </button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+        
+        let currentWeather = null;
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+            setTimeout(() => {
+                errorDiv.classList.remove('show');
+            }, 5000);
+        }
+        
+        function showLoading() {
+            document.getElementById('loadingWeather').classList.add('show');
+            document.getElementById('weatherData').style.display = 'none';
+            document.getElementById('noWeatherData').style.display = 'none';
+        }
+        
+        function hideLoading() {
+            document.getElementById('loadingWeather').classList.remove('show');
+        }
+        
+        function displayWeather(weather) {
+            hideLoading();
+            
+            document.getElementById('temperature').textContent = weather.temperature + '°F';
+            document.getElementById('condition').textContent = weather.description;
+            
+            // Update weather icon based on condition
+            const iconElement = document.getElementById('weatherIcon').querySelector('i');
+            const condition = weather.description.toLowerCase();
+            
+            if (condition.includes('sunny') || condition.includes('clear')) {
+                iconElement.setAttribute('data-feather', 'sun');
+            } else if (condition.includes('rain')) {
+                iconElement.setAttribute('data-feather', 'cloud-rain');
+            } else if (condition.includes('cloud')) {
+                iconElement.setAttribute('data-feather', 'cloud');
+            } else if (condition.includes('snow')) {
+                iconElement.setAttribute('data-feather', 'cloud-snow');
+            } else {
+                iconElement.setAttribute('data-feather', 'sun');
+            }
+            
+            feather.replace();
+            
+            document.getElementById('weatherData').style.display = 'block';
+            document.getElementById('noWeatherData').style.display = 'none';
+            document.getElementById('outfitBtn').disabled = false;
+            
+            currentWeather = weather;
+        }
+        
+        function getLocation() {
+            const btn = document.getElementById('locationBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<div class="spinner" style="width: 16px; height: 16px; margin-right: 0.5rem;"></div>Getting location...';
+            
+            if (!navigator.geolocation) {
+                showError('Geolocation is not supported by this browser');
+                resetLocationButton();
+                return;
+            }
+            
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    await fetchWeatherByCoords(lat, lon);
+                    resetLocationButton();
+                },
+                (error) => {
+                    console.error('Geolocation error:', error);
+                    showError('Unable to get your location. Please enter a city manually.');
+                    resetLocationButton();
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 300000
+                }
+            );
+        }
+        
+        function resetLocationButton() {
+            const btn = document.getElementById('locationBtn');
+            btn.disabled = false;
+            btn.innerHTML = '<i data-feather="map-pin" style="width: 20px; height: 20px;"></i>Use My Location';
+            feather.replace();
+        }
+        
+        function handleCityInput(event) {
+            if (event.key === 'Enter') {
+                const city = event.target.value.trim();
+                if (city) {
+                    fetchWeatherByCity(city);
+                }
+            }
+        }
+        
+        async function fetchWeatherByCoords(lat, lon) {
+            showLoading();
+            try {
+                const response = await fetch(`/api/weather/coords/${lat}/${lon}`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                displayWeather(data);
+            } catch (error) {
+                console.error('Weather API error:', error);
+                hideLoading();
+                showError('Unable to get weather data. Please try again.');
+            }
+        }
+        
+        async function fetchWeatherByCity(city) {
+            showLoading();
+            try {
+                const response = await fetch(`/api/weather/city/${encodeURIComponent(city)}`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                displayWeather(data);
+            } catch (error) {
+                console.error('Weather API error:', error);
+                hideLoading();
+                showError('City not found. Please check the spelling and try again.');
+            }
+        }
+        
+        function checkOutfit() {
+            if (!currentWeather) {
+                showError('Please get weather data first');
+                return;
+            }
+            
+            // Navigate to outfit recommendation page
+            window.location.href = '/outfit';
+        }
+    </script>
+</body>
+</html>

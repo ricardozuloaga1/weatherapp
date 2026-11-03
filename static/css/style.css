@@ -1,0 +1,211 @@
+/* WeatherAvatar Custom Styles */
+/* Using Bootstrap variables and minimal custom overrides */
+
+:root {
+    /* Custom properties for consistent spacing and animations */
+    --weather-transition: all 0.3s ease-in-out;
+    --avatar-size: 120px;
+    --card-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Body and Layout */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* Hero Section Enhancements */
+.hero-section {
+    padding: 2rem 0;
+}
+
+.hero-section .display-1 i {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Card Hover Effects */
+.card {
+    transition: var(--weather-transition);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--card-hover-shadow);
+}
+
+/* Navigation Enhancements */
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.navbar-brand i {
+    width: 24px;
+    height: 24px;
+}
+
+/* Button Enhancements */
+.btn {
+    transition: var(--weather-transition);
+    border-radius: 0.5rem;
+}
+
+.btn i {
+    width: 18px;
+    height: 18px;
+}
+
+/* Weather-specific Components */
+.weather-card {
+    background: linear-gradient(135deg, var(--bs-body-bg) 0%, var(--bs-secondary-bg) 100%);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.weather-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+}
+
+.temperature-display {
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1;
+}
+
+/* Avatar Components */
+.avatar-container {
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--bs-border-color);
+    transition: var(--weather-transition);
+}
+
+.avatar-container:hover {
+    border-color: var(--bs-info);
+    transform: scale(1.05);
+}
+
+/* Utility Classes */
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.backdrop-blur {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 1rem 0;
+    }
+    
+    .temperature-display {
+        font-size: 2.5rem;
+    }
+    
+    .display-4 {
+        font-size: 2rem;
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--bs-border-color);
+    border-top-color: var(--bs-info);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Alert Enhancements */
+.alert {
+    border: none;
+    border-radius: 0.75rem;
+}
+
+.alert .feather {
+    width: 20px;
+    height: 20px;
+}
+
+/* Footer Styling */
+footer {
+    background: var(--bs-body-bg);
+    border-top: 1px solid var(--bs-border-color);
+}
+
+footer .feather {
+    width: 16px;
+    height: 16px;
+}
+
+/* Modal Enhancements */
+.modal-content {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+.modal-header .feather {
+    width: 20px;
+    height: 20px;
+}
+
+/* Code blocks */
+code {
+    background-color: var(--bs-secondary-bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bs-body-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bs-border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-secondary);
+}

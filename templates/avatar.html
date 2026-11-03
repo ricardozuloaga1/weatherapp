@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Avatar - WeatherAvatar{% endblock %}</title>
+    
+    <!-- Bootstrap CSS with Replit Theme -->
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 50%, #E6F3FF 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .avatar-container {
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
+            border-radius: 2rem;
+            border: 4px solid #2C3E50;
+            width: 90%;
+            max-width: 400px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .header-section {
+            text-align: center;
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .avatar-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2C3E50;
+            margin: 0;
+        }
+        
+        .avatar-display-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .avatar-silhouette {
+            width: 200px;
+            height: 300px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .silhouette-svg {
+            width: 100%;
+            height: 100%;
+            fill: #2C3E50;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+        
+        .avatar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+        }
+        
+        .action-button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .looks-good-btn {
+            background: #3B82F6;
+            color: white;
+        }
+        
+        .looks-good-btn:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .edit-details-btn {
+            background: transparent;
+            color: #3B82F6;
+            border: 2px solid #3B82F6;
+        }
+        
+        .edit-details-btn:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-1px);
+            color: #3B82F6;
+            text-decoration: none;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: none;
+            border: none;
+            color: #2C3E50;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .avatar-info {
+            text-align: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem;
+        }
+        
+        .avatar-details {
+            font-size: 0.9rem;
+            color: #2C3E50;
+            margin: 0;
+        }
+        
+        @media (max-width: 480px) {
+            .avatar-container {
+                width: 95%;
+                padding: 1.5rem;
+                min-height: 85vh;
+            }
+            
+            .avatar-title {
+                font-size: 1.5rem;
+            }
+            
+            .avatar-silhouette {
+                width: 160px;
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="avatar-container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="goBack()">
+            <i data-feather="arrow-left" style="width: 24px; height: 24px;"></i>
+        </button>
+        
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1 class="avatar-title">Your Avatar</h1>
+        </div>
+        
+        <!-- Avatar Display Section -->
+        <div class="avatar-display-section">
+            <!-- Avatar Info -->
+            {% if profile %}
+            <div class="avatar-info">
+                <p class="avatar-details">
+                    {{ profile.height }}cm • {{ profile.gender|title }} • {{ profile.body_type|title }}
+                </p>
+            </div>
+            {% endif %}
+            
+            <!-- Avatar Silhouette -->
+            <div class="avatar-silhouette">
+                <svg class="silhouette-svg" viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Head -->
+                    <ellipse cx="50" cy="15" rx="8" ry="10"/>
+                    
+                    <!-- Body (varies by gender and body type) -->
+                    {% if profile and profile.gender == 'female' %}
+                        <!-- Female silhouette -->
+                        <path d="M42 25 C40 25, 38 30, 40 40 L40 70 C38 75, 40 80, 42 85 L42 95 C40 100, 42 105, 45 110 L45 140 C45 145, 50 150, 50 150 C50 150, 55 145, 55 140 L55 110 C58 105, 60 100, 58 95 L58 85 C60 80, 62 75, 60 70 L60 40 C62 30, 60 25, 58 25 Z"/>
+                    {% elif profile and profile.gender == 'athletic' %}
+                        <!-- Athletic silhouette -->
+                        <path d="M40 25 C38 25, 36 30, 38 35 L38 45 C36 50, 38 55, 40 60 L40 90 C38 95, 40 100, 42 105 L42 140 C42 145, 50 150, 50 150 C50 150, 58 145, 58 140 L58 105 C60 100, 62 95, 60 90 L60 60 C62 55, 64 50, 62 45 L62 35 C64 30, 62 25, 60 25 Z"/>
+                    {% else %}
+                        <!-- Male/default silhouette -->
+                        <path d="M42 25 C40 25, 38 30, 40 35 L40 50 C38 55, 40 60, 42 65 L42 95 C40 100, 42 105, 44 110 L44 140 C44 145, 50 150, 50 150 C50 150, 56 145, 56 140 L56 110 C58 105, 60 100, 58 95 L58 65 C60 60, 62 55, 60 50 L60 35 C62 30, 60 25, 58 25 Z"/>
+                    {% endif %}
+                    
+                    <!-- Arms -->
+                    <ellipse cx="32" cy="45" rx="4" ry="15" transform="rotate(-15 32 45)"/>
+                    <ellipse cx="68" cy="45" rx="4" ry="15" transform="rotate(15 68 45)"/>
+                    
+                    <!-- Legs -->
+                    <ellipse cx="45" cy="125" rx="5" ry="25"/>
+                    <ellipse cx="55" cy="125" rx="5" ry="25"/>
+                </svg>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="avatar-actions">
+            <a href="{{ url_for('outfit') }}" class="action-button looks-good-btn">
+                Looks Good
+            </a>
+            <a href="{{ url_for('profile') }}" class="action-button edit-details-btn">
+                Edit Details
+            </a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Add click animations to buttons
+        document.querySelectorAll('.action-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>

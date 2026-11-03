@@ -1,0 +1,254 @@
+{
+  "navy-tailoring": {
+    "name": "Grey knit & navy trousers",
+    "style": "Minimalist",
+    "weather": [
+      "mild"
+    ],
+    "source_url": "https://www.stylehint.com/us/en/item/849996933",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/us/imagesgoods/479372/item/usgoods_69_479372_3x4.jpg?width=600"
+  },
+  "winter-skirt": {
+    "name": "Down coat & skirt",
+    "style": "Tailored",
+    "weather": [
+      "cold",
+      "coldrain"
+    ],
+    "source_url": "https://www.uniqlo.com/us/en/products/E478579-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/us/imagesgoods/478579/item/usgoods_38_478579_3x4.jpg?width=600"
+  },
+  "rain-denim": {
+    "name": "Brown shell & straight-leg denim",
+    "style": "Casual",
+    "weather": [
+      "rain",
+      "warmrain",
+      "mild"
+    ],
+    "source_url": "https://www.uniqlo.com/eu-sk/en/products/E481601-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/eu/imagesgoods/481601/sub/eugoods_481601_sub3_3x4.jpg?width=600"
+  },
+  "rain-relaxed": {
+    "name": "Black shell & tennis skirt",
+    "style": "Sporty",
+    "weather": [
+      "warmrain",
+      "sun"
+    ],
+    "source_url": "https://www.uniqlo.com/au/en/products/E481601-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/au/imagesgoods/481601/item/augoods_09_481601_3x4.jpg?width=600"
+  },
+  "rain-shirt": {
+    "name": "Grey shell & navy trousers",
+    "style": "Smart casual",
+    "weather": [
+      "rain",
+      "warmrain",
+      "mild"
+    ],
+    "source_url": "https://www.uniqlo.com/au/en/products/E482211-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/au/imagesgoods/482211/sub/augoods_482211_sub3_3x4.jpg?width=600"
+  },
+  "rain-cargo": {
+    "name": "Navy shell & wide cargo pants",
+    "style": "Streetwear",
+    "weather": [
+      "rain",
+      "warmrain",
+      "mild"
+    ],
+    "source_url": "https://www.uniqlo.com/au/en/products/E482211-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/au/imagesgoods/482211/sub/augoods_482211_sub7_3x4.jpg?width=600"
+  },
+  "floral-shorts": {
+    "name": "Floral shirt & linen shorts",
+    "style": "Expressive",
+    "weather": [
+      "sun"
+    ],
+    "source_url": "https://www.uniqlo.com/us/en/products/E477660-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/us/imagesgoods/477660/item/usgoods_30_477660_3x4.jpg?width=600"
+  },
+  "print-set": {
+    "name": "Floral matching set",
+    "style": "Expressive",
+    "weather": [
+      "sun"
+    ],
+    "source_url": "https://www.uniqlo.com/id/id/products/E489142-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/id/imagesgoods/489142/item/idgoods_62_489142_3x4.jpg?width=600",
+    "coverage": "Clothing reference \u00b7 footwear not shown"
+  },
+  "blue-shorts": {
+    "name": "Blue shirt & printed shorts",
+    "style": "Casual",
+    "weather": [
+      "sun"
+    ],
+    "source_url": "https://www.uniqlo.com/uk/en/products/E482648-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/482648/item/gbgoods_67_482648_3x4.jpg?width=600",
+    "coverage": "Clothing reference \u00b7 footwear not shown"
+  },
+  "botanical": {
+    "name": "Linen shirt & botanical skort",
+    "style": "Expressive",
+    "weather": [
+      "sun"
+    ],
+    "source_url": "https://www.uniqlo.com/us/en/products/E458155-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/us/imagesgoods/458155/item/usgoods_01_458155_3x4.jpg?width=600",
+    "coverage": "Clothing reference \u00b7 footwear not shown"
+  },
+  "down-grey": {
+    "name": "Grey down coat & dark trousers",
+    "style": "Minimalist",
+    "weather": [
+      "cold",
+      "coldrain"
+    ],
+    "source_url": "https://www.uniqlo.com/us/en/products/E478280-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/us/imagesgoods/478280/item/usgoods_07_478280_3x4.jpg?width=600",
+    "coverage": "Clothing reference \u00b7 footwear not shown"
+  },
+  "down-navy": {
+    "name": "Navy down & grey trousers",
+    "style": "Smart casual",
+    "weather": [
+      "cold",
+      "coldrain"
+    ],
+    "source_url": "https://www.uniqlo.com/us/en/products/E459625-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/WesternCommon/imagesgoods/459625/sub/goods_459625_sub7_3x4.jpg?width=600"
+  },
+  "winter-black": {
+    "name": "Hooded parka & black trousers",
+    "style": "Streetwear",
+    "weather": [
+      "cold",
+      "coldrain"
+    ],
+    "source_url": "https://www.uniqlo.com/uk/en/products/E481200-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/481200/sub/gbgoods_481200_sub1_3x4.jpg?width=600"
+  },
+  "winter-sweats": {
+    "name": "Long down coat & sweat set",
+    "style": "Sporty",
+    "weather": [
+      "cold",
+      "coldrain"
+    ],
+    "source_url": "https://www.uniqlo.com/us/en/products/E481014-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/us/imagesgoods/481014/item/usgoods_09_481014_3x4.jpg?width=600",
+    "coverage": "Clothing reference \u00b7 footwear not shown"
+  },
+  "brown-down": {
+    "name": "Brown puffer & grey separates",
+    "style": "Casual",
+    "weather": [
+      "cold",
+      "coldrain"
+    ],
+    "source_url": "https://www.uniqlo.com/jp/ja/products/E464020-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/464020/sub/goods_464020_sub7_3x4.jpg?width=600"
+  },
+  "red-tailoring": {
+    "name": "Beige suit & red zip layer",
+    "style": "Expressive",
+    "weather": [
+      "mild"
+    ],
+    "source_url": "https://www.uniqlo.com/id/en/products/E483036-000/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/id/imagesgoods/483036/item/idgoods_32_483036_3x4.jpg?width=600",
+    "coverage": "Clothing reference \u00b7 footwear not shown"
+  },
+  "navy-wide": {
+    "name": "Navy jacket & wide-leg trousers",
+    "style": "Tailored",
+    "weather": [
+      "mild"
+    ],
+    "source_url": "https://www.uniqlo.com/th/en/stylehint/12658698",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/th/imagesgoods/483041/item/thgoods_69_483041_3x4.jpg?width=600"
+  },
+  "stripe-denim": {
+    "name": "Striped knit & oversized denim",
+    "style": "Streetwear",
+    "weather": [
+      "mild"
+    ],
+    "source_url": "https://www.uniqlo.com/au/en/products/E481006-002/00",
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/au/imagesgoods/481006002/sub/augoods_481006002_sub5_3x4.jpg?width=600"
+  },
+  "linen": {
+    "name": "Linen shirt & wide-leg trousers",
+    "style": "Minimalist",
+    "weather": [
+      "sun"
+    ],
+    "source_url": "https://www.uniqlo.com/uk/en/products/E473791-000/00"
+  },
+  "parka": {
+    "name": "Winter parka & denim",
+    "style": "Casual",
+    "weather": [
+      "cold",
+      "coldrain"
+    ],
+    "source_url": "https://www.uniqlo.com/sg/en/products/E460924-000"
+  },
+  "red-dress": {
+    "name": "Red dress & sandals",
+    "style": "Expressive",
+    "weather": [
+      "sun"
+    ],
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/ph/imagesgoods/484055/item/phgoods_15_484055_3x4.jpg?width=494",
+    "source_url": "https://www.uniqlo.com/ph/en/products/E484055-000",
+    "coverage": "Clothing reference \u00b7 footwear not shown"
+  },
+  "sport-dress": {
+    "name": "Blue mini dress & sneakers",
+    "style": "Sporty",
+    "weather": [
+      "sun"
+    ],
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/us/imagesgoods/482795/item/usgoods_65_482795_3x4.jpg?width=600",
+    "source_url": "https://www.uniqlo.com/us/en/products/E482795-000/00"
+  },
+  "pink-shell": {
+    "name": "Pink shell & joggers",
+    "style": "Sporty",
+    "weather": [
+      "rain",
+      "warmrain",
+      "mild"
+    ],
+    "photo_url": "https://api.fastretailing.com/ugc/v1/uq/gl/OFFICIAL_IMAGES/230207094611_official_styling_120016625_r-600-800",
+    "source_url": "https://www.uniqlo.com/us/en/products/E457470-000/00"
+  },
+  "long-rain": {
+    "name": "Long olive coat & trousers",
+    "style": "Classic",
+    "weather": [
+      "rain",
+      "warmrain",
+      "mild"
+    ],
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/gb/imagesgoods/475047/item/gbgoods_56_475047_3x4.jpg",
+    "source_url": "https://www.uniqlo.com/uk/en/products/E475047-000/00",
+    "coverage": "Clothing reference \u00b7 footwear not shown"
+  },
+  "rain-urban": {
+    "name": "Olive raincoat & layers",
+    "style": "Minimalist",
+    "weather": [
+      "rain",
+      "warmrain",
+      "mild"
+    ],
+    "photo_url": "https://image.uniqlo.com/UQ/ST3/us/imagesgoods/470056/item/usgoods_56_470056_3x4.jpg?width=600",
+    "source_url": "https://www.uniqlo.com/us/en/products/E470056-000/00",
+    "coverage": "Clothing reference \u00b7 footwear not shown"
+  }
+}

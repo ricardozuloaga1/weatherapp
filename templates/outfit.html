@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Outfit - WeatherAvatar{% endblock %}</title>
+    
+    <!-- Bootstrap CSS with Replit Theme -->
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 50%, #E6F3FF 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .outfit-container {
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
+            border-radius: 2rem;
+            border: 4px solid #2C3E50;
+            width: 90%;
+            max-width: 400px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .header-section {
+            text-align: center;
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .outfit-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2C3E50;
+            margin: 0;
+        }
+        
+        .outfit-content {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            flex-grow: 1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .avatar-outfit {
+            width: 160px;
+            height: 240px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .outfit-svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .weather-recap {
+            text-align: center;
+            padding: 1rem;
+            background: #F8FAFC;
+            border-radius: 0.75rem;
+            border: 1px solid #E5E7EB;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .weather-info {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2C3E50;
+            margin: 0 0 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .weather-icon {
+            width: 24px;
+            height: 24px;
+            color: #F59E0B;
+        }
+        
+        .outfit-tip {
+            font-size: 0.95rem;
+            color: #6B7280;
+            line-height: 1.4;
+            margin: 0;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            margin-top: auto;
+        }
+        
+        .action-button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .refresh-btn {
+            background: #3B82F6;
+            color: white;
+        }
+        
+        .refresh-btn:hover {
+            background: #2563EB;
+            transform: translateY(-2px);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .change-location-btn {
+            background: transparent;
+            color: #3B82F6;
+            border: 2px solid #3B82F6;
+        }
+        
+        .change-location-btn:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-1px);
+            color: #3B82F6;
+            text-decoration: none;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: none;
+            border: none;
+            color: #2C3E50;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        @media (max-width: 480px) {
+            .outfit-container {
+                width: 95%;
+                padding: 1.5rem;
+                min-height: 85vh;
+            }
+            
+            .outfit-content {
+                padding: 1.5rem;
+            }
+            
+            .outfit-title {
+                font-size: 1.5rem;
+            }
+            
+            .avatar-outfit {
+                width: 140px;
+                height: 210px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="outfit-container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="goBack()">
+            <i data-feather="arrow-left" style="width: 24px; height: 24px;"></i>
+        </button>
+        
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1 class="outfit-title">Here's Your Outfit</h1>
+        </div>
+        
+        <!-- Outfit Content -->
+        <div class="outfit-content">
+            <!-- Dressed Avatar -->
+            <div class="avatar-outfit">
+                <svg class="outfit-svg" viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Head -->
+                    <ellipse cx="50" cy="15" rx="8" ry="10" fill="#2C3E50"/>
+                    
+                    <!-- Body (base silhouette) -->
+                    {% if profile and profile.gender == 'female' %}
+                        <!-- Female silhouette -->
+                        <path d="M42 25 C40 25, 38 30, 40 40 L40 70 C38 75, 40 80, 42 85 L42 95 C40 100, 42 105, 45 110 L45 140 C45 145, 50 150, 50 150 C50 150, 55 145, 55 140 L55 110 C58 105, 60 100, 58 95 L58 85 C60 80, 62 75, 60 70 L60 40 C62 30, 60 25, 58 25 Z" fill="#2C3E50"/>
+                    {% else %}
+                        <!-- Male/default silhouette -->
+                        <path d="M42 25 C40 25, 38 30, 40 35 L40 50 C38 55, 40 60, 42 65 L42 95 C40 100, 42 105, 44 110 L44 140 C44 145, 50 150, 50 150 C50 150, 56 145, 56 140 L56 110 C58 105, 60 100, 58 95 L58 65 C60 60, 62 55, 60 50 L60 35 C62 30, 60 25, 58 25 Z" fill="#2C3E50"/>
+                    {% endif %}
+                    
+                    <!-- Weather-based Clothing -->
+                    {% if weather %}
+                        {% if weather.temperature >= 75 %}
+                            <!-- Hot weather: T-shirt and shorts -->
+                            <!-- T-shirt -->
+                            <rect x="38" y="30" width="24" height="25" rx="3" fill="#4A90E2"/>
+                            <!-- Shorts -->
+                            <rect x="40" y="65" width="20" height="15" rx="2" fill="#1E3A8A"/>
+                        {% elif weather.temperature >= 60 %}
+                            <!-- Mild weather: Long sleeves and pants -->
+                            <!-- Long sleeve shirt -->
+                            <rect x="36" y="30" width="28" height="30" rx="3" fill="#4A90E2"/>
+                            <!-- Pants -->
+                            <rect x="42" y="65" width="16" height="40" rx="2" fill="#1E3A8A"/>
+                        {% elif weather.temperature >= 40 %}
+                            <!-- Cool weather: Sweater and pants -->
+                            <!-- Sweater -->
+                            <rect x="35" y="28" width="30" height="35" rx="4" fill="#8B5CF6"/>
+                            <!-- Pants -->
+                            <rect x="42" y="65" width="16" height="40" rx="2" fill="#1E3A8A"/>
+                        {% else %}
+                            <!-- Cold weather: Coat and warm clothes -->
+                            <!-- Heavy coat -->
+                            <rect x="33" y="25" width="34" height="45" rx="5" fill="#059669"/>
+                            <!-- Pants -->
+                            <rect x="42" y="65" width="16" height="40" rx="2" fill="#1E3A8A"/>
+                        {% endif %}
+                    {% else %}
+                        <!-- Default outfit: T-shirt and shorts -->
+                        <rect x="38" y="30" width="24" height="25" rx="3" fill="#4A90E2"/>
+                        <rect x="40" y="65" width="20" height="15" rx="2" fill="#1E3A8A"/>
+                    {% endif %}
+                    
+                    <!-- Arms -->
+                    <ellipse cx="32" cy="45" rx="4" ry="15" transform="rotate(-15 32 45)" fill="#2C3E50"/>
+                    <ellipse cx="68" cy="45" rx="4" ry="15" transform="rotate(15 68 45)" fill="#2C3E50"/>
+                    
+                    <!-- Legs -->
+                    <ellipse cx="45" cy="125" rx="5" ry="25" fill="#2C3E50"/>
+                    <ellipse cx="55" cy="125" rx="5" ry="25" fill="#2C3E50"/>
+                </svg>
+            </div>
+            
+            <!-- Weather Recap -->
+            <div class="weather-recap">
+                <div class="weather-info">
+                    {% if weather %}
+                        {{ weather.temperature }}°F {{ weather.description }}
+                        {% if 'sunny' in weather.description.lower() or 'clear' in weather.description.lower() %}
+                            <i data-feather="sun" class="weather-icon"></i>
+                        {% elif 'rain' in weather.description.lower() %}
+                            <i data-feather="cloud-rain" class="weather-icon"></i>
+                        {% elif 'cloud' in weather.description.lower() %}
+                            <i data-feather="cloud" class="weather-icon"></i>
+                        {% elif 'snow' in weather.description.lower() %}
+                            <i data-feather="cloud-snow" class="weather-icon"></i>
+                        {% else %}
+                            <i data-feather="sun" class="weather-icon"></i>
+                        {% endif %}
+                    {% else %}
+                        72°F Sunny <i data-feather="sun" class="weather-icon"></i>
+                    {% endif %}
+                </div>
+                
+                <p class="outfit-tip">
+                    {% if weather %}
+                        {% if weather.temperature >= 75 %}
+                            Light T-shirt and shorts recommended. Don't forget sunscreen.
+                        {% elif weather.temperature >= 60 %}
+                            Long sleeves and comfortable pants are perfect for this weather.
+                        {% elif weather.temperature >= 40 %}
+                            A warm sweater will keep you comfortable in this cool weather.
+                        {% else %}
+                            Bundle up with a heavy coat and warm clothes to stay cozy.
+                        {% endif %}
+                    {% else %}
+                        Light T-shirt and shorts recommended. Don't forget sunscreen.
+                    {% endif %}
+                </p>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="{{ url_for('weather') }}" class="action-button refresh-btn">
+                    <i data-feather="refresh-cw" style="width: 20px; height: 20px;"></i>
+                    Refresh Weather
+                </a>
+                <a href="{{ url_for('weather') }}" class="action-button change-location-btn">
+                    <i data-feather="map-pin" style="width: 20px; height: 20px;"></i>
+                    Change Location
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Initialize Feather Icons -->
+    <script>
+        feather.replace();
+        
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Add click animations to buttons
+        document.querySelectorAll('.action-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
