@@ -19,3 +19,13 @@ header{padding-top:max(10px,env(safe-area-inset-top))}#temperature-chart svg tex
 #setup-style-tabs{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0}#setup-style-tabs button{font-size:11px;padding:7px 10px}#setup-style-tabs button[aria-pressed=true]{background:#285e87;color:#fff}#setup-choices .look-card{border:2px solid transparent}#setup-choices .look-card[aria-pressed=true]{border-color:#377da9}#setup-choices .look-card img{object-fit:contain}#another-weather-look{display:block;margin:10px auto 16px;font-size:12px}#another-weather-look[hidden]{display:none}.setup-summary-row img{flex-shrink:0;width:29px;height:42px}
 
 .weather-preview-controls{margin:12px 0;padding:12px}.weather-preview-controls label{font-size:12px}.weather-preview-controls select{padding:10px;width:100%;margin-top:6px}.outfit-reference{display:flex;align-items:center;gap:15px;padding:12px;margin:10px 0}.outfit-reference[hidden]{display:none}.outfit-reference img{width:100px;height:145px;object-fit:contain}.outfit-reference strong{display:block;margin:8px 0}.outfit-reference p,.outfit-reference small{font-size:11px}.outfit-reference div{flex:1}
+
+/* Constrain intrinsic image/text sizing inside narrow iPhone cards. */
+.outfit-hero{grid-template-columns:minmax(0,47%) minmax(0,1fr)}
+.outfit-hero>div,.outfit-reference>div{min-width:0;overflow-wrap:anywhere}
+.outfit-reference>img{flex-shrink:0}
+.today-piece img{max-width:100%}
+
+.outfit-jump{display:inline-block;font-size:13px;color:#245d8b;padding:8px 0}#today-look{scroll-margin-top:24px}
+
+.welcome-steps{padding-left:24px}.welcome-steps li{padding:8px 0 8px 8px}.welcome-steps p{margin:8px 0;color:#607788;line-height:1.55}

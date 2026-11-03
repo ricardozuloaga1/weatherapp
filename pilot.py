@@ -97,7 +97,7 @@ def create_app(renderer=generate, store_path=None, fashn_client=None, fashn_auto
     app.extensions['pilot_state'] = state
     app.extensions['pilot_store'] = store
     app.extensions['pilot_pool'] = pool
-    fashn = FashnJobs(store.db, lock, client=fashn_client, autostart=fashn_autostart, user_limit=int(os.environ.get('FASHN_USER_CREDIT_LIMIT', '12')), global_limit=int(os.environ.get('FASHN_GLOBAL_CREDIT_LIMIT', '24')))
+    fashn = FashnJobs(store.db, lock, client=fashn_client, autostart=False, user_limit=int(os.environ.get('FASHN_USER_CREDIT_LIMIT', '12')), global_limit=int(os.environ.get('FASHN_GLOBAL_CREDIT_LIMIT', '24')))
     app.extensions['fashn'] = fashn
     weather_profile = register_weather(app, store, lock)
     register_radar(app, weather_profile)
@@ -476,6 +476,9 @@ def create_app(renderer=generate, store_path=None, fashn_client=None, fashn_auto
         response.headers['Content-Disposition'] = 'attachment; filename=weatheravatar-comparison.json'
         return response
 
+    # Start the worker only after all tables/routes finish initialization.
+    fashn.autostart = fashn_autostart
+    fashn.kick()
     return app
 
 

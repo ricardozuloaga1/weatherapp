@@ -65,3 +65,28 @@ class ReviewedOutfitTests(unittest.TestCase):
         self.jobs.delete('owner')
         self.assertEqual(self.jobs.spent('owner'),3)
         self.assertFalse(self.jobs.tick())
+
+    def test_two_provider_jobs_in_flight_and_polling_is_fair(self):
+        first=self.enqueue()[0]
+        second=self.enqueue(base='second-avatar')[0]
+        third=self.enqueue(base='third-avatar')[0]
+        self.jobs.tick();self.jobs.tick()
+        self.assertEqual(self.client.submit_tryon.call_count,2)
+        self.client.poll=Mock(return_value=({'status':'processing'},None))
+        self.jobs.tick();self.jobs.tick()
+        self.assertEqual(self.client.submit_tryon.call_count,2)
+        rows={i:json.loads(m).get('last_poll_at') for i,m in self.db.execute('SELECT id,metadata FROM fashn_jobs')}
+        self.assertIsNotNone(rows[first]);self.assertIsNotNone(rows[second]);self.assertIsNone(rows[third])
+    def test_app_initializes_tables_before_starting_resumed_worker(self):
+        from unittest.mock import patch
+        from pilot import create_app
+        starts=[]
+        def check_start(jobs):
+            if jobs.autostart:
+                tables={r[0] for r in jobs.db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+                self.assertTrue({'garments','avatar_profiles','weather_profiles'}<=tables)
+                starts.append(True)
+        with patch.object(FashnJobs,'kick',check_start):
+            app=create_app(store_path=':memory:',fashn_client=self.client,fashn_autostart=True)
+        self.assertEqual(starts,[True])
+        app.extensions['pilot_pool'].shutdown();app.extensions['pilot_store'].db.close()

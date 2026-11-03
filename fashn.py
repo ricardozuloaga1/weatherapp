@@ -224,11 +224,14 @@ class FashnJobs:
 
     def tick(self):
         with self.lock:
-            row = self.db.execute("SELECT id,status,prediction,metadata,source,deleted,product FROM fashn_jobs WHERE status IN ('queued','polling','reviewing') ORDER BY rowid LIMIT 1").fetchone()
+            row = self.db.execute("SELECT id,status,prediction,metadata,source,deleted,product FROM fashn_jobs WHERE status IN ('polling','reviewing') OR (status='queued' AND (SELECT COUNT(*) FROM fashn_jobs WHERE status IN ('submitting','polling'))<2) ORDER BY CASE status WHEN 'reviewing' THEN 0 WHEN 'queued' THEN 1 ELSE 2 END, COALESCE(json_extract(metadata,'$.last_poll_at'),0),rowid LIMIT 1").fetchone()
             if not row or not self.client.ready:
                 return False
             id_, status, prediction, text, source, deleted, product = row
             meta = json.loads(text)
+            if status == 'polling':
+                meta['last_poll_at']=time.time()
+                with self.db:self.db.execute('UPDATE fashn_jobs SET metadata=? WHERE id=?',(json.dumps(meta),id_))
             if status == 'queued':
                 with self.db:
                     self.db.execute("UPDATE fashn_jobs SET status='submitting' WHERE id=?", (id_,))
